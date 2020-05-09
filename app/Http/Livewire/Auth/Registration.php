@@ -22,11 +22,13 @@ class Registration extends Component
             'password' => 'required|min:6|same:passwordConfirmation',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $data['name'],
-            'email' => $data['email'], 
+            'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        auth()->login($user);
 
         return redirect('/');
 
