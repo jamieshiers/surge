@@ -78,6 +78,22 @@ class registrationTest extends TestCase
     }
 
     /** @test */
+    function see_email_hasent_been_taken_validation_message_as_user_types()
+    {
+        User::create([
+            'name' => 'Jamie',
+            'email' => 'jamie@jamieshiers.co.uk',
+            'password' => Hash::make('password'),
+        ]);
+
+        Livewire::test('auth.registration')
+            ->set('email', 'jami@jamieshiers.co.uk')
+            ->assertHasNoErrors()
+            ->set('email', 'jamie@jamieshiers.co.uk')
+            ->assertHasErrors(['email' => 'unique']);
+    }
+
+    /** @test */
     function password_is_required()
     {
         Livewire::test('auth.registration')
