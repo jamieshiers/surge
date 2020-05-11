@@ -19,7 +19,6 @@ class Registration extends Component
         $this->validate(['email' => 'unique:users']);
     }
 
-
     public function register()
     {
         $data = $this->validate([
